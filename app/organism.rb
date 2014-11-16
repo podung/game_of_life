@@ -1,6 +1,6 @@
 class Organism
-  def initialize
-    @alive = true
+  def initialize(initial_life_status)
+    @alive = initial_life_status
   end
 
   def alive?

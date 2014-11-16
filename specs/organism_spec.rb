@@ -4,8 +4,19 @@ require 'rspec/its'
 require_relative '../app/organism.rb'
 
 describe Organism do
-  context "initial state" do
-    its(:alive?) { should be true }
+  let(:initial_life_status) { true }
+
+  subject { described_class.new(initial_life_status) }
+
+  describe "intialization" do
+    context "starting alive" do
+      its(:alive?) { should be true }
+    end
+
+    context "starting dead" do
+      let(:initial_life_status) { false }
+      its(:alive?) { should be false }
+    end
   end
 
   describe "kill!" do
