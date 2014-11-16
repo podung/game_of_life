@@ -15,5 +15,14 @@ describe Organism do
 
     its(:alive?) { should be false }
   end
+
+  describe "resurrect!" do
+    before do
+      subject.kill!
+      subject.resurrect!
+    end
+
+    its(:alive?) { should be true }
+  end
 end
 
