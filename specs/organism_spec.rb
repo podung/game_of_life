@@ -5,7 +5,7 @@ require_relative '../app/organism.rb'
 
 describe Organism do
   context "initial state" do
-    its(:alive?) { should eq true }
+    its(:alive?) { should be true }
   end
 
   describe "kill!" do
@@ -13,7 +13,7 @@ describe Organism do
       subject.kill!
     end
 
-    its(:alive?) { should eq false }
+    its(:alive?) { should be false }
   end
 end
 
