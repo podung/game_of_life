@@ -1,0 +1,1 @@
+My implementation of Game of Life in Ruby using curses library for output.
