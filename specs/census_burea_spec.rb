@@ -46,5 +46,16 @@ describe CensusBureau do
       it { should include middle_right }
       it { should include middle_middle }
     end
+
+    context "when in the bottom row" do
+      let(:row) { 2 }
+      let(:column) { 1 }
+      its(:count) { should be 5 }
+      it { should include middle_left }
+      it { should include middle_right }
+      it { should include middle_middle }
+      it { should include bottom_left }
+      it { should include bottom_right }
+    end
   end
 end

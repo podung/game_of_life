@@ -18,8 +18,12 @@ class CensusBureau
     end
 
     #neighbors in row below
-    neighbors << @grid[row+1][col-1]
-    neighbors << @grid[row+1][col]
-    neighbors << @grid[row+1][col+1]
+    if (row < @grid.size - 1)
+      neighbors << @grid[row+1][col-1]
+      neighbors << @grid[row+1][col]
+      neighbors << @grid[row+1][col+1]
+    end
+
+    neighbors
   end
 end
