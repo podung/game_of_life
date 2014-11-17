@@ -25,6 +25,7 @@ describe CensusBureau do
     context "when surrounded on all sides" do
       let(:row) { 1 }
       let(:column) { 1 }
+      its(:count) { should be 8 }
       it { should include upper_left }
       it { should include upper_middle }
       it { should include upper_right }
@@ -33,6 +34,17 @@ describe CensusBureau do
       it { should include bottom_left }
       it { should include bottom_middle }
       it { should include bottom_right }
+    end
+
+    context "when in the top row" do
+      let(:row) { 0 }
+      let(:column) { 1 }
+      its(:count) { should be 5 }
+      it { should include upper_left }
+      it { should include upper_right }
+      it { should include middle_left }
+      it { should include middle_right }
+      it { should include middle_middle }
     end
   end
 end
