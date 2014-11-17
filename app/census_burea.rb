@@ -1,6 +1,7 @@
 class CensusBureau
   def initialize(grid)
     @grid = grid
+    raise "invalid starting grid" unless valid?
   end
 
   def neighbors_for(row, col)
@@ -25,5 +26,10 @@ class CensusBureau
     end
 
     neighbors
+  end
+
+  private
+  def valid?
+    @grid.all? { |row| row.size == @grid.first.size }
   end
 end

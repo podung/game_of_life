@@ -14,10 +14,23 @@ describe CensusBureau do
   let(:bottom_middle) { double "bottom_middle" }
   let(:bottom_right)  { double "bottom_right" }
 
-  let(:grid) { [[upper_left,  upper_middle,  upper_right],
-                [middle_left, middle_middle, middle_right],
-                [bottom_left, bottom_middle, bottom_right]] }
+  let(:upper_row)  { [upper_left,  upper_middle,  upper_right] }
+  let(:middle_row) { [middle_left, middle_middle, middle_right] }
+  let(:bottom_row) { [bottom_left, bottom_middle, bottom_right] }
 
+  let(:grid) {[ upper_row,
+                middle_row,
+                bottom_row ]}
+
+  context "when initialized with a non-rectangle board" do
+    before do
+      bottom_row.pop
+    end
+
+    it "should blow up" do
+      expect { described_class.new(grid) }.to raise_error "invalid starting grid"
+    end
+  end
 
   describe "neighbors_for" do
     subject { described_class.new(grid).neighbors_for(row, column) }
@@ -78,6 +91,15 @@ describe CensusBureau do
       it { should include middle_middle }
       it { should include bottom_right }
       it { should include bottom_middle }
+    end
+
+    context "when spot checking top right" do
+      let(:row) { 0 }
+      let(:column) { 2 }
+      its(:count) { should be 3 }
+      it { should include upper_middle }
+      it { should include middle_middle }
+      it { should include middle_right }
     end
   end
 end
