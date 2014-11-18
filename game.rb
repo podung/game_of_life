@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
 
-require_relative 'printer'
+require_relative 'app/printer'
 
 board_1 = [[false,false,false,false,true,false,false],
              [true,false,true,false,true,false,false],

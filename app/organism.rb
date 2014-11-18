@@ -14,5 +14,9 @@ class Organism
   def resurrect!
     @alive = true
   end
+
+  def ==(o)
+    o.class == self.class && o.alive? == alive?
+  end
 end
 
