@@ -28,9 +28,23 @@ describe Universe do
                           "    \n" +
                           "  # \n" }
 
-    context "when less than 2 cells" do
+    context "when less than 2 neighbors" do
       it "should kill cells" do
         expect(subject.grid.flatten).to all(eq Organism.new(false))
+      end
+    end
+
+    context "when 2 or three neighbors" do
+      let(:starting_grid) { "    \n" +
+                            " ## \n" +
+                            " ## \n" +
+                            "    \n" }
+
+
+      it "should not kill cells" do
+        expect(subject.grid.flatten.count(alive?: true)).to eq 4
+        expect(subject.grid[1]).to eq [ Organism.new(false), Organism.new(true), Organism.new(false), Organism.new(true) ]
+        expect(subject.grid[2]).to eq [ Organism.new(false), Organism.new(true), Organism.new(false), Organism.new(true) ]
       end
     end
   end
