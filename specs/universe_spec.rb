@@ -19,4 +19,19 @@ describe Universe do
     end
   end
 
+  describe "tick" do
+    before do
+      subject.tick
+    end
+
+    let(:starting_grid) { " ## \n" +
+                          "    \n" +
+                          "  # \n" }
+
+    context "when less than 2 cells" do
+      it "should kill cells" do
+        expect(subject.grid.flatten).to all(eq Organism.new(false))
+      end
+    end
+  end
 end
