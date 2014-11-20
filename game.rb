@@ -1,22 +1,20 @@
 #!/usr/bin/ruby
 
 require_relative 'app/printer'
+require_relative 'app/universe'
 
-board_1 = [[false,false,false,false,true,false,false],
-             [true,false,true,false,true,false,false],
-             [false,true,false,false,false,true,true]]
-
-board_2 = [[false,false,false,false,false,true,false],
-             [true,false,false,false,false,true,false],
-             [false,true,true,true,true,true,true]]
-
+starting_grid = 15.times.map {
+  15.times.map {
+    Random.rand(100000) % 3 == 0 ? "#" : " "
+  }.join
+}.join("\n")
 
 printer = Printer.new
+universe = Universe.new(starting_grid)
 
 loop do
-  printer.print(board_1)
-  sleep 1.0/5.0
-  printer.print(board_2)
-  sleep 1.0/5.0
+  printer.print(universe.grid)
+  universe.tick
+  sleep 1.0/2
 end
 
