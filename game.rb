@@ -3,8 +3,8 @@
 require_relative 'app/printer'
 require_relative 'app/universe'
 
-starting_grid = 15.times.map {
-  15.times.map {
+starting_grid = 30.times.map {
+  100.times.map {
     Random.rand(100000) % 3 == 0 ? "#" : " "
   }.join
 }.join("\n")
