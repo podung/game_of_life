@@ -45,15 +45,15 @@ describe Universe do
     end
 
     context "when 2 or three neighbors" do
-      let(:starting_grid) { "    \n" +
-                            " ## \n" +
-                            " ## \n" +
-                            "    \n" }
+      let(:starting_grid) { "      #  \n" +
+                            " ##  # # \n" +
+                            " ##      \n" +
+                            "         \n" }
 
-      let(:expected_grid) { "    \n" +
-                            " ## \n" +
-                            " ## \n" +
-                            "    " }
+      let(:expected_grid) { "      #  \n" +
+                            " ##      \n" +
+                            " ##      \n" +
+                            "         " }
 
 
       it "should not kill cells" do
