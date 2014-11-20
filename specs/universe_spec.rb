@@ -5,17 +5,23 @@ require_relative '../app/universe.rb'
 
 describe Universe do
 
+  def format_grid(grid)
+    grid.map { |row|
+      row.map { |cell| cell.alive? ? "#" : " " }.join
+    }.join("\n")
+  end
+
   subject { described_class.new(starting_grid) }
 
   context "when newly instantiated" do
     let(:starting_grid) { " # \n" +
                           "  #" }
 
-    let(:expected_grid) { [[Organism.new(false), Organism.new(true), Organism.new(false)],
-                           [Organism.new(false), Organism.new(false), Organism.new(true)]] }
+    let(:expected_grid) { " # \n" +
+                          "  #" }
 
     it "converts starting input into grid of organisms" do
-      expect(subject.grid).to eq expected_grid
+      expect(format_grid(subject.grid)).to eq expected_grid
     end
   end
 
@@ -24,13 +30,17 @@ describe Universe do
       subject.tick
     end
 
-    let(:starting_grid) { " ## \n" +
-                          "    \n" +
-                          "  # \n" }
-
     context "when less than 2 neighbors" do
+      let(:starting_grid) { " ## \n" +
+                            "    \n" +
+                            "  # \n" }
+
+      let(:expected_grid) { "    \n" +
+                            "    \n" +
+                            "    " }
+
       it "should kill cells" do
-        expect(subject.grid.flatten).to all(eq Organism.new(false))
+        expect(format_grid(subject.grid)).to eq expected_grid
       end
     end
 
@@ -40,11 +50,14 @@ describe Universe do
                             " ## \n" +
                             "    \n" }
 
+      let(:expected_grid) { "    \n" +
+                            " ## \n" +
+                            " ## \n" +
+                            "    " }
+
 
       it "should not kill cells" do
-        expect(subject.grid.flatten.select{|org| org.alive? }.count).to eq 4
-        expect(subject.grid[1]).to eq [ Organism.new(false), Organism.new(true), Organism.new(true), Organism.new(false) ]
-        expect(subject.grid[2]).to eq [ Organism.new(false), Organism.new(true), Organism.new(true), Organism.new(false) ]
+        expect(format_grid(subject.grid)).to eq expected_grid
       end
     end
   end
