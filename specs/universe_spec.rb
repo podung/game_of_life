@@ -42,9 +42,9 @@ describe Universe do
 
 
       it "should not kill cells" do
-        expect(subject.grid.flatten.count(alive?: true)).to eq 4
-        expect(subject.grid[1]).to eq [ Organism.new(false), Organism.new(true), Organism.new(false), Organism.new(true) ]
-        expect(subject.grid[2]).to eq [ Organism.new(false), Organism.new(true), Organism.new(false), Organism.new(true) ]
+        expect(subject.grid.flatten.select{|org| org.alive? }.count).to eq 4
+        expect(subject.grid[1]).to eq [ Organism.new(false), Organism.new(true), Organism.new(true), Organism.new(false) ]
+        expect(subject.grid[2]).to eq [ Organism.new(false), Organism.new(true), Organism.new(true), Organism.new(false) ]
       end
     end
   end

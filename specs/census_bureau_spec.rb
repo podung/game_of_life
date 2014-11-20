@@ -1,7 +1,7 @@
 require 'rspec'
 require 'rspec/its'
 
-require_relative '../app/census_burea.rb'
+require_relative '../app/census_bureau.rb'
 
 describe CensusBureau do
   let(:upper_left)    { double "upper_left" }
