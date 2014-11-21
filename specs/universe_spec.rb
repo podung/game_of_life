@@ -60,5 +60,24 @@ describe Universe do
         expect(format_grid(subject.grid)).to eq expected_grid
       end
     end
+
+    context "when more than 3 live neighbors" do
+      let(:starting_grid) { "          \n" +
+                            "     #    \n" +
+                            "    ###   \n" +
+                            "     #    \n" +
+                            "          \n" }
+
+      let(:expected_grid) { "          \n" +
+                            "     #    \n" +
+                            "    # #   \n" +
+                            "     #    \n" +
+                            "          " }
+
+
+      it "should not kill cells" do
+        expect(format_grid(subject.grid)).to eq expected_grid
+      end
+    end
   end
 end
