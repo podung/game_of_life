@@ -33,9 +33,11 @@ describe Universe do
     context "when less than 2 neighbors" do
       let(:starting_grid) { " ## \n" +
                             "    \n" +
+                            "    \n" +
                             "  # \n" }
 
       let(:expected_grid) { "    \n" +
+                            "    \n" +
                             "    \n" +
                             "    " }
 
@@ -45,12 +47,14 @@ describe Universe do
     end
 
     context "when 2 or three neighbors" do
-      let(:starting_grid) { "      #  \n" +
-                            " ##  # # \n" +
+      let(:starting_grid) { "       # \n" +
+                            "      #  \n" +
+                            " ##  #   \n" +
                             " ##      \n" +
                             "         \n" }
 
-      let(:expected_grid) { "      #  \n" +
+      let(:expected_grid) { "         \n" +
+                            "      #  \n" +
                             " ##      \n" +
                             " ##      \n" +
                             "         " }
