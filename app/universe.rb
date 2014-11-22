@@ -14,12 +14,25 @@ class Universe
     resurrect_list = []
 
     grid.flatten.each { |organism|
-      kill_list << organism if @census_bureau.neighbors_for(organism).select {|org| org.alive?}.count < 2
-      kill_list << organism if @census_bureau.neighbors_for(organism).select {|org| org.alive?}.count > 3
-      resurrect_list << organism if @census_bureau.neighbors_for(organism).select {|org| org.alive?}.count == 3
+      kill_list << organism if underpopulated? organism
+      kill_list << organism if overpopulated? organism
+      resurrect_list << organism if love_child? organism
     }
 
     kill_list.map(&:kill!)
     resurrect_list.map(&:resurrect!)
+  end
+
+  private
+  def underpopulated?(organism)
+    @census_bureau.neighbors_for(organism).select {|org| org.alive?}.count < 2
+  end
+
+  def overpopulated?(organism)
+    @census_bureau.neighbors_for(organism).select {|org| org.alive?}.count > 3
+  end
+
+  def love_child?(organism)
+    @census_bureau.neighbors_for(organism).select {|org| org.alive?}.count == 3
   end
 end
