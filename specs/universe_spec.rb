@@ -80,6 +80,25 @@ describe Universe do
 
 
       it "should not kill cells" do
+        expect(format_grid([subject.grid[2]])).to eq expected_grid.split("\n")[2]
+      end
+    end
+
+    context "when dead cell has exactly 3 live neighbors" do
+      let(:starting_grid) { "          \n" +
+                            "     #    \n" +
+                            "    # #   \n" +
+                            "          \n" +
+                            "          \n" }
+
+      let(:expected_grid) { "          \n" +
+                            "     #    \n" +
+                            "     #    \n" +
+                            "          \n" +
+                            "          " }
+
+
+      it "resurrect the cell" do
         expect(format_grid(subject.grid)).to eq expected_grid
       end
     end
