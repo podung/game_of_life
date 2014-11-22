@@ -33,11 +33,10 @@ describe CensusBureau do
   end
 
   describe "neighbors_for" do
-    subject { described_class.new(grid).neighbors_for(row, column) }
+    subject { described_class.new(grid).neighbors_for(test_cell) }
 
     context "when surrounded on all sides" do
-      let(:row) { 1 }
-      let(:column) { 1 }
+      let(:test_cell) { middle_middle }
       its(:count) { should be 8 }
       it { should include upper_left }
       it { should include upper_middle }
@@ -50,8 +49,7 @@ describe CensusBureau do
     end
 
     context "when in the top row" do
-      let(:row) { 0 }
-      let(:column) { 1 }
+      let(:test_cell) { upper_middle }
       its(:count) { should be 5 }
       it { should include upper_left }
       it { should include upper_right }
@@ -61,8 +59,7 @@ describe CensusBureau do
     end
 
     context "when in the bottom row" do
-      let(:row) { 2 }
-      let(:column) { 1 }
+      let(:test_cell) { bottom_middle }
       its(:count) { should be 5 }
       it { should include middle_left }
       it { should include middle_right }
@@ -72,8 +69,7 @@ describe CensusBureau do
     end
 
     context "when in the left column" do
-      let(:row) { 1 }
-      let(:column) { 0 }
+      let(:test_cell) { middle_left }
       its(:count) { should be 5 }
       it { should include upper_left }
       it { should include upper_middle }
@@ -83,8 +79,7 @@ describe CensusBureau do
     end
 
     context "when in the right column" do
-      let(:row) { 1 }
-      let(:column) { 2 }
+      let(:test_cell) { middle_right }
       its(:count) { should be 5 }
       it { should include upper_right }
       it { should include upper_middle }
@@ -94,8 +89,7 @@ describe CensusBureau do
     end
 
     context "when spot checking top right" do
-      let(:row) { 0 }
-      let(:column) { 2 }
+      let(:test_cell) { upper_right }
       its(:count) { should be 3 }
       it { should include upper_middle }
       it { should include middle_middle }

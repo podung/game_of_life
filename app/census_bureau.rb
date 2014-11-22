@@ -4,7 +4,20 @@ class CensusBureau
     raise "invalid starting grid" unless valid?
   end
 
-  def neighbors_for(row, col)
+  def neighbors_for(organism)
+    neighbors_dictionary[organism]
+  end
+
+  private
+  def valid?
+    @grid.all? { |row| row.size == @grid.first.size }
+  end
+
+  def neighbors_dictionary
+    @neighbors_dictionary ||= Hash[ @grid.map.with_index { |row, row_index| row.collect.with_index { |organism, column_index| [organism, grid_neighbors(row_index,column_index)] } }.flatten(1) ]
+  end
+
+  def grid_neighbors(row, col)
     neighbors = []
 
     #neighbors in same row
@@ -26,10 +39,5 @@ class CensusBureau
     end
 
     neighbors
-  end
-
-  private
-  def valid?
-    @grid.all? { |row| row.size == @grid.first.size }
   end
 end
