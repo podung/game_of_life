@@ -25,14 +25,14 @@ class Universe
 
   private
   def underpopulated?(organism)
-    @census_bureau.neighbors_for(organism).select {|org| org.alive?}.count < 2
+    @census_bureau.neighbors_for(organism).select(&:alive?).count < 2
   end
 
   def overpopulated?(organism)
-    @census_bureau.neighbors_for(organism).select {|org| org.alive?}.count > 3
+    @census_bureau.neighbors_for(organism).select(&:alive?).count > 3
   end
 
   def love_child?(organism)
-    @census_bureau.neighbors_for(organism).select {|org| org.alive?}.count == 3
+    @census_bureau.neighbors_for(organism).select(&:alive?).count == 3
   end
 end
