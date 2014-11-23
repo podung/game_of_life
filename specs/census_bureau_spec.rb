@@ -95,5 +95,13 @@ describe CensusBureau do
       it { should include middle_middle }
       it { should include middle_right }
     end
+
+    context "when spot checking bottom left" do
+      let(:test_cell) { bottom_left }
+      its(:count) { should be 3 }
+      it { should include middle_left }
+      it { should include middle_middle }
+      it { should include bottom_middle }
+    end
   end
 end

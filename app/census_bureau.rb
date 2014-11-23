@@ -1,7 +1,10 @@
 class CensusBureau
   def initialize(grid)
-    @grid = grid
-    raise "invalid starting grid" unless valid?
+    raise "invalid starting grid" unless valid?(grid)
+
+    @grid = grid.flatten
+    @width = grid.first.size
+    @height = grid.size
   end
 
   def neighbors_for(organism)
@@ -9,35 +12,55 @@ class CensusBureau
   end
 
   private
-  def valid?
-    @grid.all? { |row| row.size == @grid.first.size }
+  def valid?(grid)
+    grid.all? { |row| row.size == grid.first.size }
   end
 
   def neighbors_dictionary
-    @neighbors_dictionary ||= Hash[ @grid.map.with_index { |row, row_index| row.collect.with_index { |organism, column_index| [organism, grid_neighbors(row_index,column_index)] } }.flatten(1) ]
+    neighbors_array = @grid.each_with_index.map { |organism, index| [organism, grid_neighbors(index)] }
+    @neighbors_dictionary ||= Hash[ neighbors_array ]
   end
 
-  def grid_neighbors(row, col)
+
+  def grid_neighbors(index)
     neighbors = []
 
     #neighbors in same row
-    neighbors << @grid[row][col-1] if col > 0
-    neighbors << @grid[row][col+1] if col < @grid[0].size - 1
+    neighbors << @grid[index-1] unless leftmost_column?(index)
+    neighbors << @grid[index+1] unless rightmost_column?(index)
 
     #neighbors in row above
-    if (row > 0)
-      neighbors << @grid[row-1][col-1] if col > 0
-      neighbors << @grid[row-1][col]
-      neighbors << @grid[row-1][col+1] if col < @grid[0].size - 1
+    unless top_row?(index)
+      neighbors << @grid[index - @width - 1] unless leftmost_column?(index)
+      neighbors << @grid[index - @width]
+      neighbors << @grid[index - @width + 1] unless rightmost_column?(index)
     end
 
     #neighbors in row below
-    if (row < @grid.size - 1)
-      neighbors << @grid[row+1][col-1] if col > 0
-      neighbors << @grid[row+1][col]
-      neighbors << @grid[row+1][col+1] if col < @grid[0].size - 1
+    unless bottom_row?(index)
+      neighbors << @grid[index + @width - 1] unless leftmost_column?(index)
+      neighbors << @grid[index + @width]
+      neighbors << @grid[index + @width + 1] unless rightmost_column?(index)
     end
 
     neighbors
+  end
+
+
+  private
+  def leftmost_column?(index)
+    index % @width == 0
+  end
+
+  def rightmost_column?(index)
+    index % @width == @width - 1
+  end
+
+  def top_row?(index)
+    index < @width
+  end
+
+  def bottom_row?(index)
+    index >= @width * (@height - 1)
   end
 end
