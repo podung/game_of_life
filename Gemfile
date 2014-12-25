@@ -4,4 +4,4 @@ gem 'curses'
 
 gem 'rspec'
 gem 'rspec-its'
-gem 'debugger'
+gem 'byebug'
