@@ -17,10 +17,8 @@ class CensusBureau
   end
 
   def neighbors_dictionary
-    neighbors_array = @grid.each_with_index.map { |organism, index| [organism, grid_neighbors(index)] }
-    @neighbors_dictionary ||= Hash[ neighbors_array ]
+    @neighbors_dictionary ||= Hash[ @grid.each_with_index.map { |organism, index| [organism, grid_neighbors(index)] } ]
   end
-
 
   def grid_neighbors(index)
     neighbors = []
